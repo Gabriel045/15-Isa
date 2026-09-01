@@ -12,17 +12,17 @@ body {
 }
 
 .glass-card {
-  background: rgba(255,255,255,0.55);
+  background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,255,255,0.6);
-  box-shadow: rgba(240,165,176,0.25) 0px 8px 32px -8px, rgba(255,255,255,0.6) 0px 1px 0px 0px inset;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: rgba(240, 165, 176, 0.25) 0px 8px 32px -8px, rgba(255, 255, 255, 0.6) 0px 1px 0px 0px inset;
 }
 
 .icon-badge {
-  background: linear-gradient(135deg, rgb(240,165,176), rgba(240,165,176,0.867));
-  color: rgb(96,66,70);
-  box-shadow: rgba(240,165,176,0.4) 0px 4px 14px -2px;
+  background: linear-gradient(135deg, rgb(240, 165, 176), rgba(240, 165, 176, 0.867));
+  color: rgb(96, 66, 70);
+  box-shadow: rgba(240, 165, 176, 0.4) 0px 4px 14px -2px;
 }
 
 /* cascading "polaroid" gallery like the original invitation */
@@ -30,23 +30,28 @@ body {
   background: #fff;
   padding: 0.5rem 0.5rem 2.5rem;
   border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 12px 28px -8px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 12px 28px -8px rgba(0, 0, 0, 0.3);
   transition: transform .3s ease;
 }
-.polaroid:hover { transform: scale(1.025); }
+
+.polaroid:hover {
+  transform: scale(1.025);
+}
 
 .cd-box {
-  background: rgb(240,165,176);
+  background: rgb(240, 165, 176);
   color: #fff;
 }
 
 .rsvp-btn {
   transition: all .2s ease;
 }
+
 .rsvp-btn[aria-pressed="true"].yes {
   border-color: #22c55e;
   background: #f0fdf4;
 }
+
 .rsvp-btn[aria-pressed="true"].no {
   border-color: #ef4444;
   background: #fef2f2;
@@ -56,41 +61,60 @@ body {
 .cta-btn {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, rgb(240,165,176) 0%, color-mix(in srgb, rgb(240,165,176) 88%, rgb(0,0,0)) 100%);
+  background: linear-gradient(135deg, rgb(240, 165, 176) 0%, color-mix(in srgb, rgb(240, 165, 176) 88%, rgb(0, 0, 0)) 100%);
 }
+
 .cta-btn .shine {
   position: absolute;
   inset: 0;
-  background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.55) 50%, transparent 80%);
+  background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.55) 50%, transparent 80%);
   transform: translateX(-100%);
   animation: shine-sweep 2.8s ease-in-out infinite;
 }
+
 @keyframes shine-sweep {
-  0%, 45% { transform: translateX(-100%); }
-  65% { transform: translateX(100%); }
-  100% { transform: translateX(100%); }
+
+  0%,
+  45% {
+    transform: translateX(-100%);
+  }
+
+  65% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 /* ---- Entry gate popup: same "cristal" (glass) technique as .glass-card, dark variant ---- */
 #entry-gate {
   transition: opacity .5s ease;
 }
+
 #entry-gate.entry-gate-hidden {
   opacity: 0;
   pointer-events: none;
 }
 
+.entry-gate-backdrop {
+  backdrop-filter: blur(15px);
+  background: #68656557;
+  -webkit-backdrop-filter: blur(40px);
+}
+
 .entry-card {
-  background: rgba(46,27,28,0.55);
+  background: linear-gradient(155deg, rgb(75 61 61) 0%, rgb(0 0 0 / 42%) 100%);
   backdrop-filter: blur(28px);
   -webkit-backdrop-filter: blur(28px);
-  border: 1px solid rgba(255,255,255,0.12);
-  box-shadow: rgba(0,0,0,0.35) 0px 20px 50px -12px, rgba(255,255,255,0.08) 0px 1px 0px 0px inset;
+  border: 1px solid rgba(240, 165, 176, 0.35);
+  box-shadow: rgba(240, 165, 176, 0.1) 0px 0px 0px 9999px inset, rgba(255, 255, 255, 0.22) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.5) 0px 24px 80px -16px;
 }
 
 .entry-icon-badge {
-  background: rgba(255,255,255,0.06);
-  border: 1.5px solid rgba(255,255,255,0.25);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
   color: var(--inv-accent);
 }
 
@@ -98,18 +122,20 @@ body {
   position: relative;
   overflow: hidden;
   background: linear-gradient(135deg, #fbdce1, var(--inv-accent));
-  color: rgb(96,66,70);
-  box-shadow: rgba(240,165,176,0.55) 0px 0px 24px 2px, rgba(240,165,176,0.35) 0px 8px 20px -4px;
+  color: rgb(96, 66, 70);
+  box-shadow: rgba(240, 165, 176, 0.55) 0px 0px 24px 2px, rgba(240, 165, 176, 0.35) 0px 8px 20px -4px;
   transition: transform .2s ease, box-shadow .2s ease;
 }
+
 .entry-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: rgba(240,165,176,0.7) 0px 0px 30px 4px, rgba(240,165,176,0.4) 0px 10px 24px -4px;
+  transform: translateY(-3px);
+  box-shadow: rgba(240, 165, 176, 0.7) 0px 0px 30px 4px, rgba(240, 165, 176, 0.4) 0px 10px 24px -4px;
 }
+
 .entry-btn .shine {
   position: absolute;
   inset: 0;
-  background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.65) 50%, transparent 80%);
+  background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.65) 50%, transparent 80%);
   transform: translateX(-100%);
   animation: shine-sweep 2.8s ease-in-out infinite;
 }
@@ -117,12 +143,22 @@ body {
 .entry-dot {
   position: absolute;
   border-radius: 9999px;
-  background: rgba(255,255,255,0.55);
-  box-shadow: 0 0 6px rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
   animation: entry-dot-float 4s ease-in-out infinite;
   pointer-events: none;
 }
+
 @keyframes entry-dot-float {
-  0%, 100% { transform: translateY(0); opacity: .5; }
-  50% { transform: translateY(-10px); opacity: 1; }
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: .5;
+  }
+
+  50% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
 }

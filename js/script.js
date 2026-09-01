@@ -1,5 +1,5 @@
 // Countdown — set your target date/time here
-const target = new Date('2026-11-21T19:00:00');
+const target = new Date('2026-12-30T19:00:00');
 function tick() {
   const now = new Date();
   let diff = Math.max(0, target - now);
@@ -20,6 +20,26 @@ function setRsvp(btn, choice) {
   document.querySelectorAll('.rsvp-btn').forEach(b => b.setAttribute('aria-pressed','false'));
   btn.setAttribute('aria-pressed','true');
 }
+
+// Personaliza la invitación según el token ?i= de la URL, buscando el
+// nombre en data/invitados.json (generado por tools/generar_invitados.py)
+async function cargarInvitado() {
+  const nombreEl = document.getElementById('invitation-name');
+  const token = new URLSearchParams(window.location.search).get('i');
+  if (!nombreEl || !token) return;
+
+  try {
+    const res = await fetch('data/invitados.json');
+    const invitados = await res.json();
+    const invitado = invitados[token];
+    if (invitado) {
+      nombreEl.textContent = invitado.nombre;
+    }
+  } catch (err) {
+    console.error('No se pudo cargar data/invitados.json', err);
+  }
+}
+cargarInvitado();
 
 // Entry gate popup — locks scroll until the guest taps "Entrar"
 const entryGate = document.getElementById('entry-gate');
