@@ -41,6 +41,37 @@ async function cargarInvitado() {
 }
 cargarInvitado();
 
+// Hero parallax — the photo drifts slower than the scroll while the hero
+// is in view. The wrapper is sized 115%/-7.5% top precisely so the image
+// has 7.5% of viewport height of "extra" room on each side to shift into
+// without ever exposing an empty edge (see the HERO section markup).
+const heroImage = document.getElementById('hero-image');
+if (heroImage) {
+  const parallaxFactor = 0.3;
+  function updateHeroParallax() {
+    const maxOffset = window.innerHeight * 0.075;
+    const offset = Math.max(-maxOffset, Math.min(maxOffset, window.scrollY * parallaxFactor));
+    heroImage.style.transform = `translateY(${offset}px)`;
+  }
+  updateHeroParallax();
+  window.addEventListener('scroll', updateHeroParallax, { passive: true });
+}
+
+// Scroll reveal — each .reveal card starts hidden and fades/slides in
+// the first time it enters the viewport
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.15, rootMargin: '0px 0px -80px 0px' }
+);
+document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
 // Entry gate popup — locks scroll until the guest taps "Entrar"
 const entryGate = document.getElementById('entry-gate');
 const entryBtn = document.getElementById('entry-btn');
