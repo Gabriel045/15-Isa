@@ -24,83 +24,36 @@
   }
 </script>
 
-<style>
-  /* --- design tokens taken directly from the original InvitiApp CSS variables --- */
-  :root {
-    --inv-accent: #f0a5b0;
-    --inv-bg: #FBF1EF;
-  }
-
-  /* exact bg color + repeating bow/ribbon SVG pattern (50x50 tile, 8% opacity) */
-  body {
-    background-color: var(--inv-bg);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Cg fill='%23f0a5b0' fill-opacity='0.08'%3E%3Cpath d='M25 20c-2.5-4-7-6-10-3s-1 8 3 9c-4 1-6 5-3 9s7.5 1 10-3c2.5 4 7 6 10 3s1-8-3-9c4-1 6-5 3-9s-7.5-1-10 3z'/%3E%3Ccircle cx='25' cy='25' r='2'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 50px 50px;
-  }
-
-  .glass-card {
-    background: rgba(255,255,255,0.55);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255,255,255,0.6);
-    box-shadow: rgba(240,165,176,0.25) 0px 8px 32px -8px, rgba(255,255,255,0.6) 0px 1px 0px 0px inset;
-  }
-
-  .icon-badge {
-    background: linear-gradient(135deg, rgb(240,165,176), rgba(240,165,176,0.867));
-    color: rgb(96,66,70);
-    box-shadow: rgba(240,165,176,0.4) 0px 4px 14px -2px;
-  }
-
-  /* cascading "polaroid" gallery like the original invitation */
-  .polaroid {
-    background: #fff;
-    padding: 0.5rem 0.5rem 2.5rem;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 12px 28px -8px rgba(0,0,0,0.3);
-    transition: transform .3s ease;
-  }
-  .polaroid:hover { transform: scale(1.025); }
-
-  .cd-box {
-    background: rgb(240,165,176);
-    color: #fff;
-  }
-
-  .rsvp-btn {
-    transition: all .2s ease;
-  }
-  .rsvp-btn[aria-pressed="true"].yes {
-    border-color: #22c55e;
-    background: #f0fdf4;
-  }
-  .rsvp-btn[aria-pressed="true"].no {
-    border-color: #ef4444;
-    background: #fef2f2;
-  }
-
-  /* CTA button with the exact gradient + animated "shine" sweep from the original */
-  .cta-btn {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(135deg, rgb(240,165,176) 0%, color-mix(in srgb, rgb(240,165,176) 88%, rgb(0,0,0)) 100%);
-  }
-  .cta-btn .shine {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.55) 50%, transparent 80%);
-    transform: translateX(-100%);
-    animation: shine-sweep 2.8s ease-in-out infinite;
-  }
-  @keyframes shine-sweep {
-    0%, 45% { transform: translateX(-100%); }
-    65% { transform: translateX(100%); }
-    100% { transform: translateX(100%); }
-  }
-</style>
+<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="font-serif text-stone-800">
+
+  <!-- ============ ENTRY GATE POPUP ============ -->
+  <div id="entry-gate" class="fixed inset-0 z-[100] flex items-center justify-center p-6">
+    <div class="absolute inset-0 w-full h-full overflow-hidden">
+      <img alt="" class="absolute inset-0 w-full h-full object-cover scale-110 blur-md"
+           src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?q=80&w=1200&auto=format&fit=crop">
+      <div class="absolute inset-0 bg-black/25"></div>
+    </div>
+
+    <span class="entry-dot" style="top:18%; left:12%; width:6px; height:6px; animation-delay:0s;"></span>
+    <span class="entry-dot" style="top:32%; left:85%; width:8px; height:8px; animation-delay:.6s;"></span>
+    <span class="entry-dot" style="top:70%; left:8%; width:5px; height:5px; animation-delay:1.2s;"></span>
+    <span class="entry-dot" style="top:78%; left:90%; width:7px; height:7px; animation-delay:.3s;"></span>
+    <span class="entry-dot" style="top:12%; left:60%; width:4px; height:4px; animation-delay:.9s;"></span>
+
+    <div class="entry-card relative z-10 w-full max-w-md rounded-[2rem] px-8 py-10 md:px-12 md:py-12 text-center text-white">
+      <div class="entry-icon-badge mx-auto mb-6 w-16 h-16 rounded-full flex items-center justify-center text-3xl">🎁</div>
+      <p class="text-sm md:text-base tracking-wide opacity-90 mb-1">Estás Invitad@</p>
+      <h2 class="text-3xl md:text-4xl font-bold leading-tight mb-4">Mis 15 años, Isa</h2>
+      <p class="text-sm md:text-base opacity-80 mb-8">Te esperamos</p>
+      <button id="entry-btn" type="button" class="entry-btn w-full rounded-full font-semibold py-4 text-base">
+        <span class="shine"></span>
+        <span class="relative flex items-center justify-center gap-2">✨ Entrar</span>
+      </button>
+    </div>
+  </div>
 
   <!-- ============ HERO ============ -->
   <div class="h-dvh flex flex-col relative overflow-hidden">
@@ -247,30 +200,7 @@
     <p class="italic text-stone-700 opacity-80">¡Nos vemos pronto!</p>
   </footer>
 
-  <script>
-    // Countdown — set your target date/time here
-    const target = new Date('2026-11-21T19:00:00');
-    function tick() {
-      const now = new Date();
-      let diff = Math.max(0, target - now);
-      const d = Math.floor(diff / 86400000); diff -= d * 86400000;
-      const h = Math.floor(diff / 3600000); diff -= h * 3600000;
-      const m = Math.floor(diff / 60000); diff -= m * 60000;
-      const s = Math.floor(diff / 1000);
-      document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
-      document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
-      document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
-      document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
-    }
-    tick();
-    setInterval(tick, 1000);
-
-    // Simple exclusive-choice RSVP toggle
-    function setRsvp(btn, choice) {
-      document.querySelectorAll('.rsvp-btn').forEach(b => b.setAttribute('aria-pressed','false'));
-      btn.setAttribute('aria-pressed','true');
-    }
-  </script>
+  <script src="js/script.js"></script>
 
 </body>
 </html>
